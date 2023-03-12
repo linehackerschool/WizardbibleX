@@ -4,5 +4,6 @@ const clone=Deno.run({
 });
 await clone.status();
 for(let i=1;i!==65;i++){
-  console.log(i)
+  const path=`./wizardbible/${i}/${i}.txt`;
+  console.log(path)
 }
