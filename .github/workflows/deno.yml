@@ -45,9 +45,4 @@ jobs:
       - name: build
         run: deno run -A main.ts
       - name : Push
-        run : |
-          if (git diff --shortstat | grep '[0-9]'); then
-          git add .;
-          git commit -m "Auto build by Gulp.js";
-          git push origin HEAD:${GITHUB_REF};
-          fi
+        run : deno run -A push.ts          
