@@ -10,7 +10,11 @@ async function file(path,id){
   const result=compile(text,id);
   await Deno.writeTextFile(`./dist/${id}.md`,result);
 }
-await Deno.mkdir("./dist")
+try{
+  await Deno.mkdir("./dist")
+}catch(e){
+  
+}
 for(let i=1;i!==65;i++){
   const path=`./wizardbible/${i}/${i}.txt`;
   file(path,i)
