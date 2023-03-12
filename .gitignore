@@ -4,3 +4,5 @@ book
 /.deno/
 #node module
 /node_modules/
+#wi
+/wizardbible/
