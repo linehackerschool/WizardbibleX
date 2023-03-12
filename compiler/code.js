@@ -5,7 +5,8 @@ const code=text=>{
     .replaceAll("`","\\`")
     .replaceAll("~","\\~")
     .replaceAll("#","\\#")
-    .replaceAll("=","\\=");
+    .replaceAll("=","\\=")
+    .replaceAll("-","\\-");
   const indexes=regIndexes(/^-{3,5}[^-\n\r]*$/mg,text);
   indexes.reverse().forEach(index=>{
     const line=text.slice(index.start,index.end);
