@@ -22,21 +22,26 @@ permissions:
   repository-projects: write
   security-events: write
   statuses: write
+  pages: write
   id-token: write
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Setup repo
         uses: actions/checkout@v3
-
       - name: Setup Deno
-        # uses: denoland/setup-deno@v1
-        uses: denoland/setup-deno@9db7f66e8e16b5699a514448ce994936c63f0d54
+        uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
       - name: Git config
         run : |
           git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}
@@ -45,4 +50,20 @@ jobs:
       - name: build
         run: deno run -A main.ts
       - name : Push
-        run : deno run -A push.ts          
+        run : deno run -A push.ts
+      - name : Build honkit
+        run : npx honkit build
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: _book/
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
