@@ -51,12 +51,6 @@ jobs:
         run: deno run -A main.ts
       - name : Push
         run : deno run -A push.ts
-      - name : Build honkit
-        run : npx honkit build
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: _book/
   deploy:
     environment:
       name: github-pages
