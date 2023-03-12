@@ -1,6 +1,6 @@
-# Deno
+book
+
+#deno
 /.deno/
-# Wizardbible
-/wizardbible/
-# node modules
+#node module
 /node_modules/
