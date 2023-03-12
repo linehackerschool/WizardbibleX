@@ -30,15 +30,17 @@ jobs:
         uses: denoland/setup-deno@9db7f66e8e16b5699a514448ce994936c63f0d54
         with:
           deno-version: v1.x
-      - name: build
-        run: deno run -A main.ts
-      - name: Push
-        run: |
+      - name: Git config
+        run : |
           git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}
           git config --global user.name "${GITHUB_ACTOR}"
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+      - name: build
+        run: deno run -A main.ts
+      - name : Push
+        run : |
           if (git diff --shortstat | grep '[0-9]'); then
-            git add .;
-            git commit -m "GitHub Actions から差分を Push";
-            git push origin HEAD:${GITHUB_REF};
+          git add .;
+          git commit -m "Auto build by Gulp.js";
+          git push origin HEAD:${GITHUB_REF};
           fi
