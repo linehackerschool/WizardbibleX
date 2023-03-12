@@ -1,5 +1,5 @@
 [book]
-authors = ["nakasyou"]
-language = "en"
+authors = ["linehackerschool"]
+language = "ja"
 multilingual = false
-src = "src"
+src = "markdown"
